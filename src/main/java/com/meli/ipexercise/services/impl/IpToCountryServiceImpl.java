@@ -1,13 +1,15 @@
-package com.meli.ipexercise.services;
+package com.meli.ipexercise.services.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.meli.ipexercise.Mapper.IpInfoMapper;
+import com.meli.ipexercise.mapper.IpInfoMapper;
 import com.meli.ipexercise.models.IpInfo;
 import com.meli.ipexercise.models.IpInfoDto;
 import com.meli.ipexercise.models.IpRequest;
 import com.meli.ipexercise.retrofit.Endpoints;
 import com.meli.ipexercise.retrofit.UnsafeOkHttpClient;
+import com.meli.ipexercise.services.CountryBasicDataService;
+import com.meli.ipexercise.services.IpToCountryService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +22,7 @@ import java.io.IOException;
 
 @ConfigurationProperties("http-services")
 @Service("IpToCountryService")
-public class IpToCountryServiceImpl implements IpToCountryService{
+public class IpToCountryServiceImpl implements IpToCountryService {
 
     private Endpoints endpoints;
     private IpInfo ipInfo;
@@ -48,7 +50,6 @@ public class IpToCountryServiceImpl implements IpToCountryService{
         ipInfo = endpoints.getIpInfo("ip?"+ipAddress.getIp()).execute().body();
         IpInfoDto ipInfoDto = IpInfoMapper.INSTANCE.ipInfo2IpInfoDto(ipInfo);
         ipInfoDto.setIp(ipAddress.getIp());
-        countryBasicDataService.getCountryBasicData(ipInfoDto);
         return ipInfoDto;
     }
 

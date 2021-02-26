@@ -1,17 +1,18 @@
 package com.meli.ipexercise.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class DataResponse {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class DataResponse extends BasicResponse {
 
     private String ip;
     private @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -23,6 +24,6 @@ public class DataResponse {
     List<ZonedDateTime> times;
     private String currency;
     private String estimatedDistance;
-
+    private String distanceMeasure;
 
 }

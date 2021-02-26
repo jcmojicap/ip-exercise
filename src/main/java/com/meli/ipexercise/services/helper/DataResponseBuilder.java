@@ -8,8 +8,6 @@ import com.meli.ipexercise.models.ExchangeRate;
 import com.meli.ipexercise.models.IpInfoDto;
 import org.springframework.stereotype.Service;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -32,7 +30,8 @@ public class DataResponseBuilder {
         response.setCurrency(getCurrencyExchange(countryInfo.getCurrencies(), exchangeRate));
         Coordenate bsAs = new Coordenate(DistanceBuilder.LATITUD_BS_AS, DistanceBuilder.LONGITUD_BS_AS);
         Coordenate country = new Coordenate(countryInfo.getLatlng().get(0), countryInfo.getLatlng().get(1));
-        response.setEstimatedDistance(formatDistance(DistanceBuilder.distance(bsAs, country)) + " KM");
+        response.setEstimatedDistance(Utils.formatDistance(DistanceBuilder.distance(bsAs, country)));
+        response.setDistanceMeasure(Constants.KILOMETERS);
         return response;
     }
 
@@ -60,12 +59,6 @@ public class DataResponseBuilder {
 
         });
         return builder.toString();
-    }
-
-    private String formatDistance(double distance){
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.setRoundingMode(RoundingMode.CEILING);
-        return df.format(distance);
     }
 
 }

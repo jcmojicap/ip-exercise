@@ -1,12 +1,13 @@
-package com.meli.ipexercise.services;
+package com.meli.ipexercise.services.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.meli.ipexercise.models.CountryInfo;
-import com.meli.ipexercise.models.IpInfo;
 import com.meli.ipexercise.models.IpInfoDto;
 import com.meli.ipexercise.retrofit.Endpoints;
 import com.meli.ipexercise.retrofit.UnsafeOkHttpClient;
+import com.meli.ipexercise.services.CountryBasicDataService;
+import com.meli.ipexercise.services.ExchangeRateService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 @Service
-public class CountryBasicDataServiceImpl implements CountryBasicDataService{
+public class CountryBasicDataServiceImpl implements CountryBasicDataService {
 
     private Endpoints endpoints;
-    private CountryInfo countryInfo;
 
     private ExchangeRateService exchangeRateService;
 
@@ -43,6 +43,9 @@ public class CountryBasicDataServiceImpl implements CountryBasicDataService{
 
     @Override
     public CountryInfo getCountryBasicData(IpInfoDto ipInfoDto) throws IOException {
+        if (ipInfoDto.getCountryCode3().isEmpty()){
+            return new CountryInfo();
+        }
         CountryInfo countryInfo = endpoints.getCountryInfo(ipInfoDto.getCountryCode3()).execute().body();
         exchangeRateService.getExchangeRate(countryInfo.getCurrencies());
         return countryInfo;
