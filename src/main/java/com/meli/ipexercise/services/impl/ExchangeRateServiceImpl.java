@@ -1,4 +1,4 @@
-package com.meli.ipexercise.services;
+package com.meli.ipexercise.services.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,6 +6,7 @@ import com.meli.ipexercise.models.CountryCurrency;
 import com.meli.ipexercise.models.ExchangeRate;
 import com.meli.ipexercise.retrofit.Endpoints;
 import com.meli.ipexercise.retrofit.UnsafeOkHttpClient;
+import com.meli.ipexercise.services.ExchangeRateService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class ExchangeRateServiceImpl implements ExchangeRateService{
+public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     private Endpoints endpoints;
     private ExchangeRate exchangeRate;

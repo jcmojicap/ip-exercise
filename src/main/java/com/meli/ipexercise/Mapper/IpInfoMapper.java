@@ -1,4 +1,4 @@
-package com.meli.ipexercise.Mapper;
+package com.meli.ipexercise.mapper;
 
 import com.meli.ipexercise.models.IpInfo;
 import com.meli.ipexercise.models.IpInfoDto;
