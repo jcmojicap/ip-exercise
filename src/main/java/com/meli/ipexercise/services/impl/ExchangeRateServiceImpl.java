@@ -1,18 +1,12 @@
 package com.meli.ipexercise.services.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.meli.ipexercise.models.CountryCurrency;
 import com.meli.ipexercise.models.ExchangeRate;
 import com.meli.ipexercise.retrofit.Endpoints;
-import com.meli.ipexercise.retrofit.UnsafeOkHttpClient;
+import com.meli.ipexercise.retrofit.RetrofitClient;
 import com.meli.ipexercise.services.ExchangeRateService;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,21 +18,10 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     private ExchangeRate exchangeRate;
     @Value("${http-services.endpoints.EXCHANGE_INFO.access_key}")
     private String accessKey;
+    private RetrofitClient retrofitClient = new RetrofitClient();
 
     public ExchangeRateServiceImpl(@Value("${http-services.endpoints.EXCHANGE_INFO.host}") String url){
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(UnsafeOkHttpClient.getUnsafeOkHttpClient())
-                .build();
-        endpoints = retrofit.create(Endpoints.class);
+        endpoints = retrofitClient.createRetrofitClient(url);
     }
 
     @Override

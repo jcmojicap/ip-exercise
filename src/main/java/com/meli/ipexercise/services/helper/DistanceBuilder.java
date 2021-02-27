@@ -10,7 +10,7 @@ public class DistanceBuilder {
     public static double LATITUD_BS_AS = -34.6037;
     public static double LONGITUD_BS_AS = -58.3816;
 
-    public static double distance(Coordenate origen, Coordenate destino){
+    public static synchronized double distance(Coordenate origen, Coordenate destino){
         double diferenciaLatitud = inRadians(destino.getLatitud() - origen.getLatitud());
         double diferenciaLongitud = inRadians(destino.getLongitud() - origen.getLongitud());
 
@@ -22,7 +22,7 @@ public class DistanceBuilder {
         return RADIO_TIERRA * c;
     }
 
-    public static double inRadians(double value){
+    public static synchronized double inRadians(double value){
         return (Math.PI/180) * value;
     }
 }
