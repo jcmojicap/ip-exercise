@@ -112,6 +112,6 @@ public class DataServiceImpl implements DataService {
         if (base == 0){
             throw new ArithmeticException();
         }
-        return Utils.formatDistance((((country1.getDistance() * country1.getInvocationsQuantity()) + (country2.getDistance() * country2.getInvocationsQuantity())) / base)) + " KM";
+        return Utils.formatDistance((((country1.getDistance() * country1.getInvocationsQuantity()) + (country2.getDistance() * country2.getInvocationsQuantity())) / base)) + " " + Constants.KILOMETERS;
     }
 }

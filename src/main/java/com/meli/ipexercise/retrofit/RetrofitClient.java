@@ -11,8 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Service
 public class RetrofitClient {
 
-    public <T extends Class> T RetrofitClient(String url, T object){
+    public static Endpoints endpoints;
 
+    public Endpoints createRetrofitClient(String url){
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -25,7 +26,7 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(UnsafeOkHttpClient.getUnsafeOkHttpClient())
                 .build();
-        object = (T) retrofit.create(object.getClass());
-        return object;
+        endpoints = retrofit.create(Endpoints.class);
+        return endpoints;
     }
 }

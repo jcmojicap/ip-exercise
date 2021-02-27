@@ -14,19 +14,19 @@ import java.io.IOException;
 @RestController
 public class IpExerciseController {
 
-    private DataService dataService;
+    private final DataService dataService;
 
     IpExerciseController(DataService dataService){
         this.dataService = dataService;
     }
 
     @PostMapping(path = "/trace")
-    public DataResponse test(@RequestBody IpRequest ipRequest) throws IOException {
+    public DataResponse obtainTrace(@RequestBody IpRequest ipRequest) throws IOException {
         return dataService.getCountryInfoFromIp(ipRequest);
     }
 
     @GetMapping(path = "/stats")
-    public UseStatistics test() throws IOException {
+    public UseStatistics getStats() throws IOException {
         return dataService.getUsageStatistics();
     }
 }
