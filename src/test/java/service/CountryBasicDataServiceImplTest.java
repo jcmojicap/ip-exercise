@@ -1,4 +1,4 @@
-package service.impl;
+package service;
 
 import com.google.gson.Gson;
 import com.meli.ipexercise.models.CountryInfo;
@@ -16,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.util.ReflectionTestUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,18 +48,18 @@ public class CountryBasicDataServiceImplTest {
 
     @Test
     public void getCountryBasicDataTestEmpty() throws IOException {
-        Mockito.when(endpoints.getCountryInfo(Mockito.anyString())).thenReturn(getCountryInfo());
+        Mockito.when(endpoints.getCountryInfo(Mockito.anyString())).thenReturn(getCountryInfoCall());
         Mockito.when(exchangeRateService.getExchangeRate(Mockito.any())).thenReturn(new ExchangeRate());
         CountryInfo info = countryBasicDataService.getCountryBasicData(new IpInfoDto());
         Assert.assertNotNull(info);
         Assert.assertNull(info.getAlpha3Code());
     }
 
-    private Call<CountryInfo> getCountryInfo(){
+    private Call<CountryInfo> getCountryInfoCall(){
         return new Call<CountryInfo>() {
             @Override
             public Response<CountryInfo> execute() throws IOException {
-                return getCountryInfo2();
+                return getCountryInfo();
             }
 
             @Override
@@ -96,7 +95,7 @@ public class CountryBasicDataServiceImplTest {
 
     }
 
-    private Response<CountryInfo> getCountryInfo2(){
+    private Response<CountryInfo> getCountryInfo(){
         CountryInfo countryInfo = new Gson()
                 .fromJson(
                         "{\"name\":\"Colombia\",\"topLevelDomain\":[\".co\"],\"alpha2Code\":\"CO\",\"alpha3Code\":\"COL\",\"callingCodes\":[\"57\"],\"capital\":\"Bogotá\",\"altSpellings\":[\"CO\",\"Republic of Colombia\",\"República de Colombia\"],\"region\":\"Americas\",\"subregion\":\"South America\",\"population\":48759958,\"latlng\":[4.0,-72.0],\"demonym\":\"Colombian\",\"area\":1141748.0,\"gini\":55.9,\"timezones\":[\"UTC-05:00\"],\"borders\":[\"BRA\",\"ECU\",\"PAN\",\"PER\",\"VEN\"],\"nativeName\":\"Colombia\",\"numericCode\":\"170\",\"currencies\":[{\"code\":\"COP\",\"name\":\"Colombian peso\",\"symbol\":\"$\"}],\"languages\":[{\"iso639_1\":\"es\",\"iso639_2\":\"spa\",\"name\":\"Spanish\",\"nativeName\":\"Español\"}],\"translations\":{\"de\":\"Kolumbien\",\"es\":\"Colombia\",\"fr\":\"Colombie\",\"ja\":\"コロンビア\",\"it\":\"Colombia\",\"br\":\"Colômbia\",\"pt\":\"Colômbia\",\"nl\":\"Colombia\",\"hr\":\"Kolumbija\",\"fa\":\"کلمبیا\"},\"flag\":\"https://restcountries.eu/data/col.svg\",\"regionalBlocs\":[{\"acronym\":\"PA\",\"name\":\"Pacific Alliance\",\"otherAcronyms\":[],\"otherNames\":[\"Alianza del Pacífico\"]},{\"acronym\":\"USAN\",\"name\":\"Union of South American Nations\",\"otherAcronyms\":[\"UNASUR\",\"UNASUL\",\"UZAN\"],\"otherNames\":[\"Unión de Naciones Suramericanas\",\"União de Nações Sul-Americanas\",\"Unie van Zuid-Amerikaanse Naties\",\"South American Union\"]}],\"cioc\":\"COL\"}",
