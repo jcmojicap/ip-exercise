@@ -29,10 +29,10 @@ public class IpToCountryServiceImpl implements IpToCountryService {
     }
 
     @Override
-    public IpInfoDto getCountryFromIp(IpRequest ipAddress) throws IOException {
-        ipInfo = endpoints.getIpInfo("ip?"+ipAddress.getIp()).execute().body();
+    public IpInfoDto getCountryFromIp(IpRequest ipRequest) throws IOException {
+        ipInfo = endpoints.getIpInfo("ip?"+ipRequest.getIp()).execute().body();
         IpInfoDto ipInfoDto = IpInfoMapper.INSTANCE.ipInfo2IpInfoDto(ipInfo);
-        ipInfoDto.setIp(ipAddress.getIp());
+        ipInfoDto.setIp(ipRequest.getIp());
         return ipInfoDto;
     }
 
