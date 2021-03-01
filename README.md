@@ -162,7 +162,7 @@ Para el almacenado de las estadisticas, se está usando una base de datos relaci
 ## DEMO
 Actualmente, se encuentra un demo desplegado en AWS - ECS en la siguiente URL:<br>
 
-[demo](3.90.227.69:8890/)
+[3.90.227.69:8890/](3.90.227.69:8890/)
 
 --------
 ## Contacto
