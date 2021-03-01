@@ -27,10 +27,10 @@ el número total de invocaciones entre los dos paises:
     ________________________________________________________________________
                   (invocaciones_pais1 + invocaciones_pais2)
     
-####Request:
+### Request:
 
     <<No recibe parámetros>>
-####Response:
+### Response:
 Json con la siguiente estructura: 
 ```
 {
@@ -76,7 +76,7 @@ la suma de invocaciones de los paises invoclucrados.*
 ### POST /trace
 Muestra la información del país al cual pertenece la IP que fue consultada:
 
-####Request:
+### Request:
 Json con la siguiente estructura:
 
     {
@@ -88,7 +88,7 @@ Ejemplo:
     {
         "ip": "132.234.1.3"
     }
-####Response:
+### Response:
 Json con la siguiente estructura: 
 ```
 {
@@ -133,7 +133,7 @@ Ejemplo:
 }
 ```
 
-###Llamados a través de cURL
+### Llamados a través de cURL
 Para hacer peticiones a los endpoints, se debe tener en cuenta la siguiente estructura:
 
 Petición GET:
@@ -147,7 +147,7 @@ Petición POST:
 
 
 --------
-##Persistencia
+## Persistencia
 Para el almacenado de las estadisticas, se está usando una base de datos relacional con una única tabla
 
 |Country_statistics   |
@@ -159,7 +159,7 @@ Para el almacenado de las estadisticas, se está usando una base de datos relaci
 
 
 --------
-##DEMO
+## DEMO
 Actualmente, se encuentra un demo desplegado en AWS - ECS en la siguiente URL:<br>
 
 [demo](3.90.227.69:8890/)
