@@ -1,0 +1,61 @@
+server:
+  port: 8890
+  address: 0.0.0.0
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+      - application/xml
+      - text/html
+      - text/xml
+      - text/plain
+
+# General information
+info:
+  app:
+    name: "meli-ip-exercise"
+    description: This project provides information about an IP address
+    contact:
+    version: 0.0.1
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/
+    username: username
+    password: password
+  jpa:
+    hibernate:
+      naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
+      dialect: org.hibernate.dialect.MySQL5Dialect
+
+
+#Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /
+  endpoint:
+    health:
+      show-details: always
+      sensitive: 'false'
+
+http-services:
+  endpoints:
+    IP_INFO:
+      host: https://api.ip2country.info/
+    COUNTRY_INFO:
+      host: https://restcountries.eu/
+    EXCHANGE_INFO:
+      host: http://data.fixer.io/
+
+logging:
+   level:
+     org.springframework.web: DEBUG
+     guru.springframework.controllers: DEBUG
+     web: DEBUG
+     okhttp3.OkHttpClient: TRACE
